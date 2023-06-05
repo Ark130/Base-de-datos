@@ -1,0 +1,139 @@
+CREATE DATABASE laboratorio ;
+
+CREATE TABLE Paciente (
+  id_paciente INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  nombre VARCHAR(60) NOT NULL,
+  fecha_nac DATE NOT NULL,
+  genero VARCHAR(1) NOT NULL,
+  telefono VARCHAR(10) NOT NULL,
+  correo VARCHAR(90) NOT NULL,
+  direccion VARCHAR(100) NOT NULL
+  );
+
+
+  CREATE TABLE Prueba (
+  id_prueba INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  nombre_prueba VARCHAR(100) NOT NULL,
+  descripcion VARCHAR(200) NOT NULL,
+  precio VARCHAR(6) NOT NULL,
+  indicaciones VARCHAR(200) NOT NULL
+  );
+
+
+  CREATE TABLE Doctor (
+  id_doctor INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  nombre VARCHAR(100) NOT NULL,
+  especialidad VARCHAR(100) NOT NULL,
+  telefono VARCHAR(10) NOT NULL,
+  correo VARCHAR(90) NOT NULL
+  );
+
+ 
+  CREATE TABLE Historial (
+  id_historial INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  id_paciente INT NOT NULL,
+  fecha DATE NOT NULL,
+  descripcion VARCHAR(200) NOT NULL,
+  FOREIGN KEY (id_paciente) REFERENCES Paciente (id_paciente)
+  );
+
+  CREATE TABLE Resultados (
+  id_resultado INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  id_paciente INT NOT NULL,
+  id_prueba INT NOT NULL,
+  id_doctor INT NOT NULL,
+  solicitado DATETIME NULL,
+  entregado DATETIME NOT NULL,
+  resultado VARCHAR(200) NOT NULL,
+  FOREIGN KEY (id_paciente) REFERENCES Paciente (id_paciente),
+  FOREIGN KEY (id_prueba) REFERENCES Prueba (id_prueba),
+  FOREIGN KEY (id_doctor) REFERENCES Doctor (id_doctor)
+  );
+
+
+INSERT INTO Paciente (nombre, fecha_nac, genero, telefono, correo, direccion) VALUES
+('Juan García López','2005-09-12','M','9511234567','juangarcia@hotmail.com','Calle Reforma #123, Colonia Centro'),
+('María Rodríguez Hernández','1999-02-28','F','9512345678','maria.rodriguez@hotmail.com','Avenida Juárez #456, Colonia Santa Rosa'),
+('José Martínez Rodríguez','2001-11-05','M','9513456789','jose.martinez@hotmail.com','Calle Abasolo #789, Colonia Xochimilco'),
+('Ana López García','1998-04-20','F','9514567890','ana.lopez@hotmail.com','Avenida Independencia #234, Colonia Reforma'),
+('Luis González Torres','1997-06-03','M','9515678901','luis.gonzalez@hotmail.com','Calle Murguía #567, Colonia Juárez'),
+('Laura Pérez Sánchez','2000-12-18','F','9516789012','laura.perez@hotmail.com','Avenida Hidalgo #890, Colonia Azucenas'),
+('Carlos Hernández Martínez','2002-08-07','M','9517890123','carlos.hernandez@hotmail.com','Calle Abasolo #1234, Colonia Guadalupe'),
+('Gabriela Torres López','2003-10-31','F','9518901234','gabriela.torres@hotmail.com','Avenida Juárez #5678, Colonia Volcanes'),
+('Manuel Sánchez González','2004-08-14','M','9519012345','manuel.sanchez@hotmail.com','Calle Murguía #9012, Colonia Santa Lucía'),
+('Patricia Ramírez Hernández','1996-05-29','F','9510123456','patricia.ramirez@hotmail.com','Avenida Independencia #3456, Colonia Reforma');
+
+
+INSERT INTO Prueba (nombre_prueba, descripcion, precio, indicaciones) VALUES
+('Prueba rapida antigeno SARS-COV-2', 'Inmunoensayo cromatográfico rápido y fiable para la detección cualitativa de antígenos específicos del SARS-CoV-2', '900', 'En casos que llevan cinco o menos días de evolución, para pacientes asintomáticos con menos de 7 días desde el contacto epidemiológico'),
+('Ex. general de orina', 'Examen de orina para evaluar la presencia de diferentes sustancias y detectar posibles irregularidades en la salud', '150', 'Realizar en ayunas y recoger una muestra de orina en un recipiente estéril'),
+('Recuento automatico de Reticulocitos', 'Análisis de sangre para determinar la cantidad de reticulocitos en la muestra', '130', 'Requiere extracción de sangre venosa'),
+('Electroforesis de Proteínas', 'Técnica de laboratorio utilizada para separar y analizar las proteínas presentes en una muestra de sangre u otro fluido biológico', '1000', 'Se requiere una muestra de suero o plasma'),
+('Acs. Antinucleares por ELISA', 'Detección y cuantificación de anticuerpos antinucleares en suero mediante el método de ELISA', '450', 'Requiere una muestra de suero'),
+('Acido urico', 'Medición de los niveles de ácido úrico en sangre', '80', 'Requiere una muestra de suero o plasma'),
+('Calcio', 'Determinación de los niveles de calcio en sangre', '110', 'Requiere una muestra de suero o plasma'),
+('Curva de tolerancia a la glucosa', 'Evaluación de los niveles de glucosa en sangre a lo largo del tiempo después de consumir una cantidad específica de glucosa', '400', 'Requiere ayuno previo y varias tomas de muestra de sangre en intervalos de tiempo'),
+('Perfil tiroideo I', 'Análisis de los niveles de hormonas tiroideas en sangre', '600', 'Requiere una muestra de suero o plasma'),
+('Anticoagulante lupico', 'Detección de anticuerpos antifosfolípidos, incluyendo el anticoagulante lúpico, en suero', '700', 'Requiere una muestra de suero');
+
+
+INSERT INTO Doctor (nombre, especialidad, telefono, correo) VALUES
+('Luis González Vasquez', 'Laboratorio Clínico', '9511234567', 'luisgonzalez@hotmail.com'),
+('María Rodríguez Días', 'Radiología', '9512345678', 'mariarodriguez@hotmail.com'),
+('José Martínez Fuentes', 'Cardiología', '9513456789', 'josemartinez@hotmail.com'),
+('Ana López Carbajal', 'Ginecología', '9514567890', 'analopez@hotmail.com'),
+('Carlos Lopez Hernández', 'Laboratorio Clínico', '9515678901', 'carloshernandez@hotmail.com'),
+('Laura Pérez García', 'Radiología', '9516789012', 'lauraperez@hotmail.com'),
+('Gabriela Torres Mendez', 'Cardiología', '9517890123', 'gabrielatorres@hotmail.com'),
+('Manuel Sánchez Reyes', 'Ginecología', '9518901234', 'manuelsanchez@hotmail.com'),
+('Patricia Ramírez Ruiz', 'Radiología', '9519012345', 'patriciaramirez@hotmail.com'),
+('Juan Garcia Garcia', 'Laboratorio Clínico', '9510123456', 'juangarcia@hotmail.com');
+
+INSERT INTO Historial (id_paciente, fecha, descripcion) VALUES
+(1, '2021-08-15', 'Prueba Rápida Antígeno SARS-CoV-2'),
+(1, '2022-06-10', 'Ex. General de Orina'),
+(2, '2021-10-20', 'Recuento Automático de Reticulocitos'),
+(3, '2022-03-25', 'Ácido Úrico'),
+(4, '2022-07-18', 'Calcio'),
+(4, '2023-03-10', 'Prueba Rápida Antígeno SARS-CoV-2'),
+(5, '2022-11-30', 'Curva de Tolerancia a la Glucosa'),
+(6, '2021-12-05', 'Perfil Tiroideo I'),
+(7, '2021-09-22', 'Prueba Rápida Antígeno SARS-CoV-2'),
+(8, '2021-11-12', 'Ex. General de Orina'),
+(9, '2022-05-05', 'Recuento Automático de Reticulocitos'),
+(9, '2023-02-18', 'Electroforesis de Proteínas'),
+(10, '2022-10-08', 'Curva de Tolerancia a la Glucosa'),
+(10, '2023-04-05', 'Prueba Rápida Antígeno SARS-CoV-2');
+
+
+  INSERT INTO Resultados (id_paciente, id_prueba, id_doctor, solicitado,entregado, resultado) VALUES
+(1, 1, 1, '2021-08-15' ,'2021-08-16' , 'Negativo: No se detectó la presencia del antígeno SARS-CoV-2 en la muestra.'),
+(1, 2, 2, '2022-06-10', '2022-06-14', 'Normal: No se encontraron irregularidades en el análisis de la muestra de orina.'),
+(2, 3, 3, '2021-10-20', '2021-10-23', 'Normal: El recuento de reticulocitos se encuentra dentro de los valores normales.'),
+(3, 6, 4, '2022-03-25', '2022-03-26', 'Normal: Los niveles de ácido úrico en la sangre se encuentran dentro del rango normal.'),
+(4, 8, 7, '2022-07-18', '2022-07-22', 'Normal: Los niveles de calcio en la sangre se encuentran dentro del rango normal.'),
+(4, 7, 5, '2023-03-10', '2023-03-13', 'Negativo: No se detectó la presencia del antígeno SARS-CoV-2 en la muestra.'),
+(5, 4, 6, '2022-11-30', '2022-12-03', 'Positivo: Se detectaron irregularidades en la curva de tolerancia a la glucosa.'),
+(6, 5, 8, '2021-12-05', '2021-12-08', 'Positivo: Se encontraron anomalías en el perfil tiroideo.'),
+(7, 1, 9, '2021-09-22', '2021-09-26', 'Negativo: No se detectó la presencia del antígeno SARS-CoV-2 en la muestra.'),
+(8, 2, 1, '2021-11-12', '2021-11-13', 'Normal: No se encontraron irregularidades en el análisis de la muestra de orina.'),
+(9, 3, 2, '2022-05-05', '2022-05-09', 'Negativo: El recuento de reticulocitos se encuentra dentro de los valores normales.'),
+(9, 6, 10, '2023-02-18', '2023-02-22', 'Normal: La electroforesis de proteínas no mostró irregularidades.'),
+(10, 8, 7, '2022-10-08', '2022-10-11', 'Negativo: No se detectaron irregularidades en la curva de tolerancia a la glucosa.'),
+(10, 1, 9, '2023-04-05', '2023-04-06', 'Positivo: No se detectó la presencia del antígeno SARS-CoV-2 en la muestra.')
+  
+INSERT INTO Resultados (id_paciente, id_prueba, id_doctor, solicitado, entregado, resultado) VALUES
+(1, 1, 1, '2021-08-15', '2021-08-16', 'Negativo: No se detectó la presencia del antígeno SARS-CoV-2 en la muestra.'),
+(1, 2, 2, '2022-06-10', '2022-06-14', 'Normal: No se encontraron irregularidades en el análisis de la muestra de orina.'),
+(2, 3, 3, '2021-10-20', '2021-10-23', 'Normal: El recuento de reticulocitos se encuentra dentro de los valores normales.'),
+(3, 6, 4, '2022-03-25', '2022-03-26', 'Normal: Los niveles de ácido úrico en la sangre se encuentran dentro del rango normal.'),
+(4, 8, 7, '2022-07-18', '2022-07-22', 'Normal: Los niveles de calcio en la sangre se encuentran dentro del rango normal.'),
+(4, 7, 5, '2023-03-10', '2023-03-13', 'Negativo: No se detectó la presencia del antígeno SARS-CoV-2 en la muestra.'),
+(5, 4, 6, '2022-11-30', '2022-12-03', 'Positivo: Se detectaron irregularidades en la curva de tolerancia a la glucosa.'),
+(6, 5, 8, '2021-12-05', '2021-12-08', 'Positivo: Se encontraron anomalías en el perfil tiroideo.'),
+(7, 1, 9, '2021-09-22', '2021-09-26', 'Negativo: No se detectó la presencia del antígeno SARS-CoV-2 en la muestra.'),
+(8, 2, 1, '2021-11-12', '2021-11-13', 'Normal: No se encontraron irregularidades en el análisis de la muestra de orina.'),
+(9, 3, 2, '2022-05-05', '2022-05-09', 'Negativo: El recuento de reticulocitos se encuentra dentro de los valores normales.'),
+(9, 6, 10, '2023-02-18', '2023-02-22', 'Normal: La electroforesis de proteínas no mostró irregularidades.'),
+(10, 8, 7, '2022-10-08', '2022-10-11', 'Negativo: No se detectaron irregularidades en la curva de tolerancia a la glucosa.'),
+(10, 1, 9, '2023-04-05', '2023-04-06', 'Positivo: No se detectó la presencia del antígeno SARS-CoV-2 en la muestra.');
